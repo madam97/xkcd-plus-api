@@ -21,19 +21,6 @@ const formatComic = (data: any): IComic => {
   }
 }
 
-// GET /:id - returns the given comic's data
-comicsRouter.get('/:id', async (req, res) => {
-  try {
-    const id = req.params.id;
-
-    const response = await axios.get(`https://xkcd.com/${id}/info.0.json`);
-    
-    res.status(200).json( formatComic(response.data) );
-  } catch (err) {
-    res.status(404).json({ msg: err instanceof Error ? err.message : 'unknown error'});
-  }
-});
-
 // GET /random - returns 9 comics' data randomly
 comicsRouter.get('/random', async (req, res) => {
   try {
@@ -60,6 +47,19 @@ comicsRouter.get('/random', async (req, res) => {
     }
   
     res.status(200).json(comicData);
+  } catch (err) {
+    res.status(404).json({ msg: err instanceof Error ? err.message : 'unknown error'});
+  }
+});
+
+// GET /:id - returns the given comic's data
+comicsRouter.get('/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const response = await axios.get(`https://xkcd.com/${id}/info.0.json`);
+    
+    res.status(200).json( formatComic(response.data) );
   } catch (err) {
     res.status(404).json({ msg: err instanceof Error ? err.message : 'unknown error'});
   }
