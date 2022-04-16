@@ -3,9 +3,9 @@ import axios from 'axios';
 import { random, zeroPad } from '../functions';
 import IComic from '../interfaces/IComic';
 
-const comicRouter = express.Router();
+const comicsRouter = express.Router();
 
-comicRouter.get('/random', async (req,res) => {
+comicsRouter.get('/random', async (req,res) => {
   try {
     const comicLimit = 9;
 
@@ -44,4 +44,4 @@ comicRouter.get('/random', async (req,res) => {
   }
 });
 
-export default comicRouter;
+export default comicsRouter;
