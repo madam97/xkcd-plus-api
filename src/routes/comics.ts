@@ -5,7 +5,37 @@ import IComic from '../interfaces/IComic';
 
 const comicsRouter = express.Router();
 
-comicsRouter.get('/random', async (req,res) => {
+/**
+ * Formats the given data to be a comic
+ * @param data 
+ * @returns 
+ */
+const formatComic = (data: any): IComic => {
+  return {
+    num: data.num,
+    img: data.img,
+    alt: data.alt,
+    title: data.title,
+    transcript: data.transcript ?? null,
+    date: new Date(`${data.year}-${zeroPad(data.month, 2)}-${zeroPad(data.day, 2)}T00:00:00.000Z`)
+  }
+}
+
+// GET /:id - returns the given comic's data
+comicsRouter.get('/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const response = await axios.get(`https://xkcd.com/${id}/info.0.json`);
+    
+    res.status(200).json( formatComic(response.data) );
+  } catch (err) {
+    res.status(404).json({ msg: err instanceof Error ? err.message : 'unknown error'});
+  }
+});
+
+// GET /random - returns 9 comics' data randomly
+comicsRouter.get('/random', async (req, res) => {
   try {
     const comicLimit = 9;
 
@@ -21,16 +51,7 @@ comicsRouter.get('/random', async (req,res) => {
         try {
           const response = await axios.get(`https://xkcd.com/${num}/info.0.json`);
 
-          const comic: IComic = {
-            num: response.data.num,
-            img: response.data.img,
-            alt: response.data.alt,
-            title: response.data.title,
-            transcript: response.data.transcript ?? null,
-            date: new Date(`${response.data.year}-${zeroPad(response.data.month, 2)}-${zeroPad(response.data.day, 2)}T00:00:00.000Z`)
-          };
-
-          comicData.push(comic);
+          comicData.push( formatComic(response.data) );
           comicNums.push(num);
         } catch (err) {
 
