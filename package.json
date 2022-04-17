@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "The API for the xkcd Plus website",
   "main": "dist/index.js",
-  "type": "module",
   "scripts": {
     "start": "node dist/index.js",
     "serve": "ts-node-dev --respawn --transpile-only src/index.ts",
