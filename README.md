@@ -2,6 +2,8 @@
 
 The API for the xkcd Plus website.
 
+Use API: https://madam-xkcd-plus-api.herokuapp.com/
+
 [Frontend readme](https://github.com/madam97/xkcd-plus#readme)
 
 ## Database
