@@ -2,6 +2,8 @@
 
 The API for the xkcd Plus website.
 
+[Frontend readme](https://github.com/madam97/xkcd-plus#readme)
+
 ## Database
 
 The website doesn't use database.
