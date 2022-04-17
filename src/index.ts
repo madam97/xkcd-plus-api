@@ -7,7 +7,9 @@ import comicRouter from './routes/comics';
 const app = express();
 
 // Init middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.UI_BASE_URL ?? '*'
+}));
 app.use(express.json());
 
 // Routes
